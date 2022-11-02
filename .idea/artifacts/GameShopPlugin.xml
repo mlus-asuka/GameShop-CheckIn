@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GameShopPlugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/GameShopPlugin</output-path>
+    <root id="archive" name="GameShopPlugin.jar">
+      <element id="library" level="project" name="Maven: cn.hutool:hutool-all:5.8.9" />
+      <element id="module-output" name="GameShop-CheckIn" />
+    </root>
+  </artifact>
+</component>
