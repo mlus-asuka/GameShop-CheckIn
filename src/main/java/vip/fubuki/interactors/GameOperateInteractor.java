@@ -81,7 +81,7 @@ public class GameOperateInteractor extends SimpleInteractors<GameShopPlugin> {
         return "Player Offline Failed";
     }
     private String CommandGenerate(XiaoMingUser user,Integer id,Integer amount){
-        String command="give ";
+        String command="minecraft:give ";
         Optional<PlayerInfo> optionalPlayerInfo = XMMCXiaoMingPlugin.getInstance().getPlayerConfiguration().getPlayerInfo(user.getCode());
         if (!optionalPlayerInfo.isPresent()) {
             user.sendError("购买失败,你还没有绑定玩家名。");

@@ -38,7 +38,7 @@ public class ShopInGame {
             }
         }
     private String CommandGenerate(String player,Integer id,Integer amount){
-            String command="give ";
+            String command="minecraft:give ";
             command = command+player;
         GameItem goods =GameShopPlugin.getInstance().getGameShop().getGoods().get(id);
         command=command+" "+ LocalJsonUtil.regex(goods.getItem_name()) +" "+amount;
