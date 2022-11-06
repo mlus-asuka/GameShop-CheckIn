@@ -3,7 +3,6 @@ package vip.fubuki.util;
 import cn.chuanwise.xiaoming.minecraft.xiaoming.XMMCXiaoMingPlugin;
 import cn.chuanwise.xiaoming.minecraft.xiaoming.net.OnlineClient;
 import cn.chuanwise.xiaoming.minecraft.xiaoming.net.Server;
-import cn.chuanwise.xiaoming.minecraft.xiaoming.net.XMMCServerClient;
 import lombok.SneakyThrows;
 import vip.fubuki.CheckInPlugin;
 import vip.fubuki.GameShopPlugin;

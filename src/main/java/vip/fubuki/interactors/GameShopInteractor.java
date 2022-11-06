@@ -55,13 +55,12 @@ public class GameShopInteractor extends SimpleInteractors<GameShopPlugin> {
                 i++;
             }while (GameShopPlugin.getInstance().getGameShop().getGoods().get(i)!=null);
 
-            int MaxPage = (int)(Math.floor(i / 8) + 1.0);
+            int MaxPage = (int)Math.ceil(Scanned/ 8);
             String text = "商店页面 当前页:" + page + "/" + MaxPage + "\n";
 
-            if ((page - 1) * 8 <= i && page != 0) {
+            if ((page - 1) * 8 < Scanned && page != 0) {
                 if(i!=0){
                     for (i = page * 8 - 7; i <= page * 8; i++) {
-                        if(ItemList.get(i-1)==null) break;
                         text = text + ItemList.get(i - 1);
                         if (i == Scanned) {
                             break;

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class GameOperateInteractor extends SimpleInteractors<GameShopPlugin> {
       @Filter(Words.BUY+"(物品|道具|item) {id}")
-      @Filter(Words.BUY+"(物品|道具|item) {id}*{amount}")
+      @Filter(Words.BUY+"(物品|道具|item) {id} {amount}")
     public void AutoDeliver(XiaoMingUser user, @FilterParameter("id") int id, @FilterParameter(value = "amount",defaultValue = "1") int amount, GroupXiaoMingUser groupXiaoMingUser) throws InterruptedException, TimeoutException {
           long groupCode = groupXiaoMingUser.getGroupCode();
           Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
