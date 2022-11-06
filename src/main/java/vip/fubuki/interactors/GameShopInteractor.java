@@ -54,8 +54,9 @@ public class GameShopInteractor extends SimpleInteractors<GameShopPlugin> {
                 }
                 i++;
             }while (GameShopPlugin.getInstance().getGameShop().getGoods().get(i)!=null);
-
-            int MaxPage = (int)Math.ceil(Scanned/ 8);
+            float a=(float) Scanned;
+            float b=8;
+            int MaxPage = (int)Math.ceil(a/ b);
             String text = "商店页面 当前页:" + page + "/" + MaxPage + "\n";
 
             if ((page - 1) * 8 < Scanned && page != 0) {
@@ -109,6 +110,24 @@ public class GameShopInteractor extends SimpleInteractors<GameShopPlugin> {
         if (user.hasTag("QueringGameShop")) {
             user.removeTag("QueringGameShop");
         }
+    }
 
+    @Filter("(查询|查看|query)(物品|道具|item) {ID}")
+    public void QueryItem(XiaoMingUser user,@FilterParameter("ID") int ID){
+        if(GameShopPlugin.getInstance().getGameShop().getGood(ID)==null){
+            user.sendMessage("没有该ID对应的商品");
+            return;
+        }
+        if(GameShopPlugin.getInstance().getGameShop().getGood(ID).getSellerName().equals("admin")){
+            user.sendMessage("该商品没有特殊NBT");
+            return;
+        }
+        String NBT= GameShopPlugin.getInstance().getItemNBT().getItemNBT().get(ID);
+        NBT=NBT.replace("?","{");
+        NBT=NBT.replace("*","}");
+        NBT=NBT.replace("~",",");
+        NBT=NBT.replace("$",":");
+        NBT=NBT.replace("%","\"");
+        user.sendMessage(NBT);
     }
 }

@@ -44,6 +44,7 @@ public class ExtendProtocolListener
                  serverClient.sendMessage(map.toString());
              } else {
                  map.put("Result", "ACCEPT");
+
                  serverClient.sendMessage(map.toString());
                  if (map.get("RequestType").toString().equals("buy")) {
                      int id=Integer.parseInt(map.get("ID").toString());

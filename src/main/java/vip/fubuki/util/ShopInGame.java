@@ -31,6 +31,7 @@ public class ShopInGame {
                         HashMap<Object, Object> map=new HashMap<>();
                         map.put("RequestType","buy");map.put("Player",player);
                         map.put("amount",amount);map.put("ItemNBT", GameShopPlugin.getInstance().getItemNBT().getItemNBT().get(id));
+                        map.put("Result","ACCEPT");
                         ExtendProtocolListener.SendMap=map.toString();
                     }
                     return PointOperate(userQQ, id, amount);
