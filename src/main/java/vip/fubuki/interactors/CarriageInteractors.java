@@ -34,7 +34,7 @@ public class CarriageInteractors extends SimpleInteractors {
     @Filter("下架(物品|道具|item) {ID}")
     public void UnderCarriaged(XiaoMingUser user, @FilterParameter("ID") int id) {
         if (id > 0 && id <= GameShopPlugin.getInstance().getGameShop().getGoods().size()) {
-            if (!GameShopPlugin.getInstance().getGameShop().getGoods().get(id).isUnderCarriaged()) {
+            if (GameShopPlugin.getInstance().getGameShop().getGoods().get(id).isUnderCarriaged()) {
                 user.sendMessage("这件商品原本就是下架的。");
             } else {
                 GameItem goods= GameShopPlugin.getInstance().getGameShop().getGoods().get(id);
