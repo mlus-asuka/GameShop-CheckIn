@@ -82,7 +82,7 @@ public class ExtendProtocolListener
                                      .getPlayerInfo(Player).get().getAccountCodes().toArray()[0];
                      NewGood.setSeller(userQQ);
                      GameShopPlugin.getInstance().getGameShop().setGoods(Index, NewGood);
-                     GameShopPlugin.getInstance().getItemNBT().setItemNBT(Index, map.get("NBT").toString());
+                     GameShopPlugin.getInstance().getItemNBT().setItemNBT(Index, map.get("ItemNBT").toString());
                      getXiaoMingBot().getContactManager().getPrivateContactPossibly(userQQ).get(0).
                              sendMessage("成功上架一样名称为:" + name + ",价格为:" + Price + ",存量为:" + Amount + "的货品，ID:" + Index);
                  }
