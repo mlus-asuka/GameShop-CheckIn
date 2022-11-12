@@ -9,6 +9,7 @@ import vip.fubuki.GameShopPlugin;
 import vip.fubuki.listeners.ExtendProtocolListener;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 public class ShopInGame {
@@ -73,6 +74,11 @@ public class ShopInGame {
             if(gameItem.getAmount()==0){
                 if(!gameItem.getSellerName().equals("admin")){
                     gameItem.setUnderCarriaged(true);
+                    Map map=new HashMap<>();
+                    map=GameShopPlugin.getInstance().getItemNBT().getItemNBT();
+                    map.remove(id);
+                    GameShopPlugin.getInstance().getItemNBT().setItemNBT(map);
+
                 }
             }
             GameShopPlugin.getInstance().getGameShop().setGoods(id,gameItem);
@@ -81,6 +87,21 @@ public class ShopInGame {
                 "你上架的"+gameItem.getItem_name()+"*"+amount+"已被人购买，获得:"+cost+"积分，当前积分:"+(point+cost));
             return  ("成功购买"+gameItem.getItem_name()+"*"+amount+"，花费"+cost+"积分，剩余"+CheckInPlugin.getInstance().getPointData().getPoints(code));
 
+    }
+
+    public static String CheckInSucessful(long userQQ) {
+        Integer Point;
+        if (CheckInPlugin.getInstance().getPointData().getPoints(userQQ) == null) {
+            Point = 0;
+        } else {
+            Point = CheckInPlugin.getInstance().getPointData().getPoints(userQQ);
+        }
+
+        Integer randomPlus = (int)(Math.random() * (double)(CheckInPlugin.getInstance().MaxPointPerTime + 1));
+        Point = Point + randomPlus;
+        CheckInPlugin.getInstance().getPointData().setPoints(userQQ, Point);
+        CheckInPlugin.getInstance().getPointData().RefreshTime(userQQ, CalculateCode.GetLocalTime());
+        return "签到成功，获得:" + randomPlus + "积分。";
     }
 }
 

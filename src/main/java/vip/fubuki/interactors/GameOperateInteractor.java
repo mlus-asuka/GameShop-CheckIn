@@ -17,9 +17,7 @@ import vip.fubuki.util.GameItem;
 import vip.fubuki.util.LocalJsonUtil;
 import vip.fubuki.util.Words;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -130,7 +128,14 @@ public class GameOperateInteractor extends SimpleInteractors<GameShopPlugin> {
             CheckInPlugin.getInstance().getPointData().setPoints(code,left);
             int point=CheckInPlugin.getInstance().getPointData().getPoints(gameItem.getSeller());
             gameItem.setAmount(gameItem.getAmount()-amount);
-            if((gameItem.getAmount()-amount)==0) gameItem.setUnderCarriaged(true);
+            if(gameItem.getAmount()==0&&!gameItem.getSellerName().equals("admin")) {
+                gameItem.setUnderCarriaged(true);
+                        gameItem.setUnderCarriaged(true);
+                        Map map=new HashMap<>();
+                        map=GameShopPlugin.getInstance().getItemNBT().getItemNBT();
+                        map.remove(id);
+                        GameShopPlugin.getInstance().getItemNBT().setItemNBT(map);
+            }
             GameShopPlugin.getInstance().getGameShop().setGoods(id,gameItem);
             CheckInPlugin.getInstance().getPointData().setPoints(gameItem.getSeller(),point+cost);
             user.sendMessage("成功购买"+gameItem.getItem_name()+"*"+amount+",花费"+cost+"积分,剩余:"+left);

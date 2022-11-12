@@ -19,6 +19,7 @@ public class GameShopInteractor extends SimpleInteractors<GameShopPlugin> {
     @Filter("(游戏商店|游戏商城|game shop)")
     @Filter("(游戏商店|游戏商城|game shop) {page}")
     public void GameShop(XiaoMingUser user,@FilterParameter(value = "page",defaultValue = "1") int page,GroupXiaoMingUser groupXiaoMingUser){
+        if(user.hasTag("QueringShop")) user.removeTag("QueringShop");
         long groupCode = groupXiaoMingUser.getGroupCode();
         Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
         if (enabled == null) {
@@ -57,12 +58,12 @@ public class GameShopInteractor extends SimpleInteractors<GameShopPlugin> {
             float a=(float) Scanned;
             float b=8;
             int MaxPage = (int)Math.ceil(a/ b);
-            String text = "商店页面 当前页:" + page + "/" + MaxPage + "\n";
+            StringBuilder text = new StringBuilder("商店页面 当前页:" + page + "/" + MaxPage + "\n");
 
             if ((page - 1) * 8 < Scanned && page != 0) {
                 if(i!=0){
                     for (i = page * 8 - 7; i <= page * 8; i++) {
-                        text = text + ItemList.get(i - 1);
+                        text.append(ItemList.get(i - 1));
                         if (i == Scanned) {
                             break;
                         }
@@ -70,13 +71,13 @@ public class GameShopInteractor extends SimpleInteractors<GameShopPlugin> {
                 }
 
                 if (page == 1 && MaxPage == 1) {
-                    text = text + "当前为唯一页 回复退出以结束查询";
+                    text.append("当前为唯一页 回复退出以结束查询");
                 } else if (page == 1) {
-                    text = text + "回复  下一页 切换页面 回复退出以结束查询";
+                    text.append("回复  下一页 切换页面 回复退出以结束查询");
                 } else {
-                    text = text + "回复 上一页 / 下一页 切换页面 回复退出以结束查询";
+                    text.append("回复 上一页 / 下一页 切换页面 回复退出以结束查询");
                 }
-                user.sendMessage(text);
+                user.sendMessage(text.toString());
             }
             else user.sendMessage("页码超出商品列表。");
 
