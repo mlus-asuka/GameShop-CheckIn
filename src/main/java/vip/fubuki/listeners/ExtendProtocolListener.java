@@ -39,7 +39,7 @@ public class ExtendProtocolListener
         String message = event.getMessage();
         boolean ACCESS = GameShopPlugin.getInstance().getGameShop().getEnabledServer().equals(client.getServerInfo().getName());
         Map map = LocalJsonUtil.StringToMap(message);
-        if (!map.get("RequestType").toString().isEmpty()) {
+        if (!(map.get("RequestType") == null)) {
             if (!ACCESS) {
                 map.put("Result", "DENIED");
                 serverClient.sendMessage(map.toString());
