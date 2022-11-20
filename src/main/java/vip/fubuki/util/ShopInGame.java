@@ -20,24 +20,28 @@ public class ShopInGame {
             if (CheckInPlugin.getInstance().getPointData().getPoints(userQQ) == null) {
                return  "你买个锤子，你有钱吗？";
             }
-            else {
-                if (!CheckIllegal(id, amount,userQQ)) {
-                    if(GameShopPlugin.getInstance().getGameShop().getGood(id).getSellerName().equals("admin")) {
-                        String command = CommandGenerate(player, id, amount);
-                        Server server = XMMCXiaoMingPlugin.getInstance().getServer();
-                        String servername = GameShopPlugin.getInstance().getGameShop().getEnabledServer();
-                        OnlineClient onlineClient = server.getOnlineClient(servername).get();
-                        onlineClient.getRemoteContact().getConsole().execute(command);
-                    }else {
-                        HashMap<Object, Object> map=new HashMap<>();
-                        map.put("RequestType","buy");map.put("Player",player);
-                        map.put("amount",amount);map.put("ItemNBT", GameShopPlugin.getInstance().getItemNBT().getItemNBT().get(id));
-                        map.put("Result","ACCEPT");
-                        ExtendProtocolListener.SendMap=map.toString();
-                    }
-                    return PointOperate(userQQ, id, amount);
-                }else return "购买失败，请检查请求的数量是否合法，积分是否足够";
+            if (!CheckIllegal(id, amount,userQQ)) {
+                if(GameShopPlugin.getInstance().getGameShop().getGood(id).getSellerName().equals("admin")) {
+                    String command = CommandGenerate(player, id, amount);
+                    Server server = XMMCXiaoMingPlugin.getInstance().getServer();
+                    String servername = GameShopPlugin.getInstance().getGameShop().getEnabledServer();
+                    OnlineClient onlineClient = server.getOnlineClient(servername).get();
+                    onlineClient.getRemoteContact().getConsole().execute(command);
+                }else {
+                    HashMap<Object, Object> map=new HashMap<>();
+                    map.put("RequestType","buy");map.put("Player",player);
+                    map.put("amount",amount);map.put("ItemNBT", GameShopPlugin.getInstance().getItemNBT().getItemNBT().get(id));
+                    map.put("Result","ACCEPT");
+                    ExtendProtocolListener.SendMap=map.toString();
+                }
+                return PointOperate(userQQ, id, amount);
+            }else{
+                HashMap<Object, Object> map=new HashMap<>();
+                map.put("Result","DENIED");
+                ExtendProtocolListener.SendMap=map.toString();
+                return "购买失败，请检查请求的数量是否合法，积分是否足够";
             }
+
         }
     private String CommandGenerate(String player,Integer id,Integer amount){
             String command="minecraft:give ";
@@ -57,7 +61,7 @@ public class ShopInGame {
             return true;
         }
         else if(gameItem.isUnderCarriaged()){
-            return true;
+            return false;
         }
         else {
             return gameItem.getAmount() < amount;
