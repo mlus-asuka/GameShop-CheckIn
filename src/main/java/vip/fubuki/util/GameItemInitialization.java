@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class GameItemInitialization {
     @SneakyThrows
-    public void Initialization(File customizerDirectory){
+    public void Initialization(){
         InputStream resourceAsStream = GameShopPlugin.class.getClassLoader().getResourceAsStream("ItemName.json");
         assert resourceAsStream != null;
         final int bufferlength = resourceAsStream.available();

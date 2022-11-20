@@ -55,7 +55,7 @@ public class GameShopPlugin extends JavaPlugin {
         if (customizerDirectory.mkdirs()) {
             itemList = setupConfiguration(ItemList.class,new File(customizerDirectory,"ItemName.json"), ItemList::new);
             GameItemInitialization itemInitialization = new GameItemInitialization();
-            itemInitialization.Initialization(customizerDirectory);
+            itemInitialization.Initialization();
         } else {
             itemList = setupConfiguration(ItemList.class, new File(customizerDirectory, "ItemName.json"), ItemList::new);
         }
